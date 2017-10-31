@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Range;
 import android.widget.TextView;
 
+import com.asgr.community.model.BibleGroup;
 import com.asgr.community.model.Book;
 import com.asgr.community.model.BiblePosition;
 import com.asgr.community.model.BibleRange;
 import com.asgr.community.model.Quote;
+import com.asgr.community.model.Testament;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,16 +31,17 @@ public class DisplayMessageActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setText(getAllBooksAsString());
 
-//        BibleGroup bibleGroup = new BibleGroup("Pentateuco", "First group");
+        BibleGroup bibleGroup = new BibleGroup(1, "Pentateuco", "First group");
+        bibleGroup.save();
 
-//        Book book = new Book("Génesis", 1, Testament.OLD, null);
-//        book.save();
+        Book book = new Book("Génesis", 1, Testament.OLD);
+        book.save();
 
         BibleRange bibleRange = new BibleRange(
                 Range.create(
                         new BiblePosition(1, 1),
                         new BiblePosition(1, 34)));
-        Quote quote = new Quote(bibleRange, bibleRange.toString(), "first quote", 12);
+        Quote quote = new Quote(bibleRange,"first quote", 12);
         quote.save();
     }
 
@@ -49,5 +52,14 @@ public class DisplayMessageActivity extends AppCompatActivity {
     private List<Book> getAllBooks() {
         List<Book> books = Book.listAll(Book.class);
         return books;
+    }
+
+    private String getAllQuotesAsString() {
+        return getAllQuotes().stream().map(Quote::toString).collect(Collectors.joining("\n"));
+    }
+
+    private List<Quote> getAllQuotes() {
+        List<Quote> quotes = Quote.listAll(Quote.class);
+        return quotes;
     }
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Community Application</string>
-    <string name="edit_message">Enter a message</string>
-    <string name="button_send">OK</string>
     <string name="button_books">Books</string>
     <string name="button_quotes">Quotes</string>
     <string name="button_groups">Groups</string>

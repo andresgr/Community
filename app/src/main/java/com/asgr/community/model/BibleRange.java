@@ -2,6 +2,8 @@ package com.asgr.community.model;
 
 import android.util.Range;
 
+import java.sql.Statement;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -33,4 +35,8 @@ public class BibleRange {
         }
     }
 
+    public static BibleRange parse(String rangeAsStr) {
+        // TODO
+        throw new UnsupportedOperationException();
+    }
 }

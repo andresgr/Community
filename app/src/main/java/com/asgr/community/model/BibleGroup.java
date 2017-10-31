@@ -17,7 +17,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class BibleGroup extends SugarRecord<BibleGroup> {
 
-    private int order;
+    private int globalOrder;
     private String name;
     private String description;
 

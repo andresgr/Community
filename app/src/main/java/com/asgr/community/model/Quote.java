@@ -3,7 +3,11 @@ package com.asgr.community.model;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,20 +19,42 @@ import lombok.ToString;
  */
 
 @Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class Quote extends SugarRecord<Quote> {
 
-    @Ignore
-    private BibleRange range;
+    @Ignore @Getter(AccessLevel.PRIVATE)
+    private Optional<BibleRange> maybeRange = Optional.empty();
 
-    private String rangeAsStr;
+    @Nonnull private String rangeAsStr;
     private String comment;
     private float punctuation;
 
-    public void setRangeAsStr(String rangeAsStr) {
-        this.rangeAsStr = rangeAsStr;
-//        this.range = BibleRange.parse(rangeAsStr);
+    public Quote(BibleRange range, String comment, float punctuation) {
+        this.maybeRange = Optional.of(range);
+        this.rangeAsStr = buildRangeAsString();
+        this.comment = comment;
+        this.punctuation = punctuation;
+    }
+
+    public BibleRange getRange() {
+        if (!maybeRange.isPresent()) {
+            maybeRange = buildRangeFromString();
+        }
+        return maybeRange.get();
+    }
+
+    @Nonnull
+    public String getRangeAsStr() {
+        return rangeAsStr != null ? rangeAsStr : buildRangeAsString();
+    }
+
+    private String buildRangeAsString() {
+        return maybeRange.get().toString();
+    }
+
+    private Optional<BibleRange> buildRangeFromString() {
+        return Optional.of(BibleRange.parse(rangeAsStr));
     }
 }
