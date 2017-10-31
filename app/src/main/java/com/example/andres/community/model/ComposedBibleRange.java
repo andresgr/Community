@@ -1,14 +1,12 @@
-package com.example.andres.myapplication.model;
+package com.example.andres.community.model;
 
-import android.util.Range;
+import com.google.common.collect.ImmutableList;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -16,26 +14,26 @@ import lombok.Setter;
  */
 
 @Getter @Setter
-@RequiredArgsConstructor
 @EqualsAndHashCode
 public class ComposedBibleRange {
 
-    private List<BibleRange> ranges;
+    private final List<BibleRange> ranges;
 
     public ComposedBibleRange(BibleRange...ranges) {
-        this.ranges = Arrays.asList(ranges);
+        // ordering
+        this.ranges = ImmutableList.<BibleRange>builder().add(ranges).build();
     }
 
-    public ComposedBibleRange addRange(BibleRange range) {
-        ranges.add(range);
+//    public ComposedBibleRange addRange(BibleRange range) {
+//        ranges.add(range);
 //        range.sort(new Comparator<Range<BiblePosition>>() {
 //            @Override
 //            public int compare(Range<BiblePosition> lhs, Range<BiblePosition> rhs) {
 //                return lhs.getLower().compareTo(rhs.getLower());
 //            }
 //        });
-        return this;
-    }
+//        return this;
+//    }
 
     @Override
     public String toString() {

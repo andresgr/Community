@@ -1,4 +1,4 @@
-package com.example.andres.myapplication.model;
+package com.example.andres.community.model;
 
 /**
  * Created by andres on 30/10/17.

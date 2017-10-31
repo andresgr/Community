@@ -1,22 +1,20 @@
-package com.example.andres.myapplication.model;
+package com.example.andres.community.model;
 
 import android.support.annotation.NonNull;
 
-import java.util.Objects;
-
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * Created by andres on 30/10/17.
  */
 
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @EqualsAndHashCode
-@AllArgsConstructor
 public class BiblePosition implements Comparable<BiblePosition> {
 
     private int chapter;

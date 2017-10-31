@@ -1,10 +1,9 @@
-package com.example.andres.myapplication;
+package com.example.andres.community;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,10 +16,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-        EditText editText = findViewById(R.id.editText);
-        System.out.println("editText.getText() = " + editText.getText());
+//        EditText editText = findViewById(R.id.editText);
+//        System.out.println("editText.getText() = " + editText.getText());
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        String message = editText.getText().toString();
+        String message = "editText.getText().toString()";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }

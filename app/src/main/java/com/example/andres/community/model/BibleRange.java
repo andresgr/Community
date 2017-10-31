@@ -1,12 +1,10 @@
-package com.example.andres.myapplication.model;
+package com.example.andres.community.model;
 
 import android.util.Range;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -19,11 +17,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class BibleRange {
 
-    private Range<BiblePosition> range;
-
-    public BibleRange(Range<BiblePosition> range) {
-        this.range = range;
-    }
+    @NonNull private final Range<BiblePosition> range;
 
     @Override
     public String toString() {

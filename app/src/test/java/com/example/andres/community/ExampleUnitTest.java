@@ -1,4 +1,4 @@
-package com.example.andres.myapplication;
+package com.example.andres.community;
 
 import org.junit.Test;
 
