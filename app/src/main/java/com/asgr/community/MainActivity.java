@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.asgr.community.model.Book;
+import com.asgr.community.model.BookGroup;
+import com.asgr.community.model.Quote;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.asgr.community.MESSAGE";
+    public static final String EXTRA_ENTITY_NAME = "com.asgr.community.ENTITY_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,12 +19,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void sendMessage(View view) {
-//        EditText editText = findViewById(R.id.editText);
-//        System.out.println("editText.getText() = " + editText.getText());
+    public void showBooks(View view) {
+        startDisplayActivity(view, Book.class.getName());
+    }
+
+    public void showQuotes(View view) {
+        startDisplayActivity(view, Quote.class.getName());
+    }
+
+    public void showGroups(View view) {
+        startDisplayActivity(view, BookGroup.class.getName());
+    }
+
+    public void startDisplayActivity(View view, String entityName) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        String message = "editText.getText().toString()";
-        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_ENTITY_NAME, entityName);
         startActivity(intent);
     }
 

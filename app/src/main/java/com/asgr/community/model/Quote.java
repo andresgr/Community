@@ -24,6 +24,8 @@ import lombok.ToString;
 @ToString
 public class Quote extends SugarRecord<Quote> {
 
+    private Book book;
+
     @Ignore @Getter(AccessLevel.PRIVATE)
     private Optional<BibleRange> maybeRange = Optional.empty();
 
@@ -31,7 +33,8 @@ public class Quote extends SugarRecord<Quote> {
     private String comment;
     private float punctuation;
 
-    public Quote(BibleRange range, String comment, float punctuation) {
+    public Quote(Book book, BibleRange range, String comment, float punctuation) {
+        this.book = book;
         this.maybeRange = Optional.of(range);
         this.rangeAsStr = buildRangeAsString();
         this.comment = comment;
