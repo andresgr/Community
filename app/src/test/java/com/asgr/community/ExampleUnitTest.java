@@ -1,4 +1,4 @@
-package com.example.andres.community;
+package com.asgr.community;
 
 import org.junit.Test;
 

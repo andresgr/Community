@@ -1,4 +1,4 @@
-package com.example.andres.community;
+package com.asgr.community;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.example.andres.community.model;
+package com.asgr.community.model;
 
 import com.orm.SugarRecord;
 
@@ -7,16 +7,18 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
+/**
+ * Created by andres on 30/10/17.
+ */
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
-@ToString
 @EqualsAndHashCode(callSuper = true)
-public class Book extends SugarRecord<Book> {
+public class BibleGroup extends SugarRecord<BibleGroup> {
 
+    private int order;
     private String name;
-    private int bookIndex;
-    private Testament testament;
+    private String description;
 
 }

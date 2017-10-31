@@ -1,4 +1,4 @@
-package com.example.andres.community.model;
+package com.asgr.community.model;
 
 /**
  * Created by andres on 30/10/17.

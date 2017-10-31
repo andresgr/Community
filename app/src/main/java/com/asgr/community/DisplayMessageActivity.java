@@ -1,4 +1,4 @@
-package com.example.andres.community;
+package com.asgr.community;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Range;
 import android.widget.TextView;
 
-import com.example.andres.community.model.BiblePosition;
-import com.example.andres.community.model.BibleRange;
-import com.example.andres.community.model.Book;
-import com.example.andres.community.model.Quote;
+import com.asgr.community.model.Book;
+import com.asgr.community.model.BiblePosition;
+import com.asgr.community.model.BibleRange;
+import com.asgr.community.model.Quote;
 
 import java.util.List;
 import java.util.stream.Collectors;
