@@ -14,7 +14,7 @@
         tools:replace="android:icon">
 
         <meta-data android:name="DATABASE" android:value="sugar_example.db" />
-        <meta-data android:name="VERSION" android:value="6" />
+        <meta-data android:name="VERSION" android:value="8" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.asgr.community.model" />
 

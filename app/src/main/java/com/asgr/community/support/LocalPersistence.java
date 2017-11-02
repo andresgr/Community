@@ -3,7 +3,7 @@ package com.asgr.community.support;
 import android.util.Range;
 
 import com.asgr.community.model.BibleGroup;
-import com.asgr.community.model.BibleGroupBookMembership;
+import com.asgr.community.model.BibleGroupBook;
 import com.asgr.community.model.BiblePosition;
 import com.asgr.community.model.BibleRange;
 import com.asgr.community.model.Book;
@@ -13,6 +13,7 @@ import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by andres on 1/11/17.
@@ -29,9 +30,10 @@ public class LocalPersistence implements Persistence {
     }
 
     private void deleteDB() {
+        Quote.deleteAll(Quote.class);
+        BibleGroupBook.deleteAll(BibleGroupBook.class);
         Book.deleteAll(Book.class);
         BibleGroup.deleteAll(BibleGroup.class);
-        Quote.deleteAll(Quote.class);
     }
 
     private void insertGroups() {
@@ -124,7 +126,20 @@ public class LocalPersistence implements Persistence {
     }
 
     private void insertGroupMemberships() {
-//        BibleGroupBookMembership.executeQuery("", "");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Pentateuco", "Génesis");
+
+        List<String> groups = findGroups().stream()
+                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
+                .collect(Collectors.toList());
+        System.out.println("groups = " + groups);
+
+        List<String> books = findBooks().stream()
+                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
+                .collect(Collectors.toList());
+        System.out.println("books = " + books);
+
+        List<BibleGroupBook> bibleGroupBooks = BibleGroupBook.listAll(BibleGroupBook.class);
+        System.out.println("bibleGroupBooks = " + bibleGroupBooks);
     }
 
     private boolean existsBook(String bookName) {
