@@ -5,4 +5,6 @@
     <string name="button_groups">Groups</string>
     <string name="text_book_abbreviation_label">Abbreviation:</string>
     <string name="text_book_testatment_label">Testament:</string>
+    <string name="text_quote_comment_label">Comment: </string>
+    <string name="text_quote_punctuation_label">Punctuation: </string>
 </resources>

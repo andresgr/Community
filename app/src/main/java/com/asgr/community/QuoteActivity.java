@@ -12,7 +12,7 @@ import com.asgr.community.model.Quote;
 import com.asgr.community.support.LocalPersistence;
 import com.asgr.community.support.Persistence;
 
-public class DisplayMessageActivity extends AppCompatActivity {
+public class QuoteActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -23,9 +23,9 @@ public class DisplayMessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_quote);
 
-        mRecyclerView = findViewById(R.id.entityList);
+        mRecyclerView = findViewById(R.id.quoteList);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -40,22 +40,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
         mPersistence.init();
 
         // specify an adapter
-        Intent intent = getIntent();
-        String entityName = intent.getStringExtra(MainActivity.EXTRA_ENTITY_NAME);
-        mAdapter = getEntityAdapter(entityName);
+        mAdapter = new QuoteEntityAdapter(mPersistence.findQuotes());
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public RecyclerView.Adapter getEntityAdapter(String entityName) {
-        if (Book.class.getName().equals(entityName)) {
-            return new BookEntityAdapter(mPersistence.findBooks());
-        } else if (BibleGroup.class.getName().equals(entityName)) {
-            return new BibleGroupEntityAdapter(mPersistence.findGroups());
-        } else if (Quote.class.getName().equals(entityName)) {
-            return new QuoteEntityAdapter(mPersistence.findQuotes());
-        } else {
-            throw new IllegalArgumentException(
-                    String.format("There is no know adapter for entity %s", entityName));
-        }
-    }
 }

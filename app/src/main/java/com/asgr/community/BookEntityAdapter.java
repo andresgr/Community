@@ -34,6 +34,7 @@ public class BookEntityAdapter extends RecyclerView.Adapter<BookEntityAdapter.Vi
             textAbbreviation.setText(book.getAbbreviation());
             textTestament.setText(book.getTestament().name());
         }
+
     }
 
     public BookEntityAdapter(List<Book> books) {

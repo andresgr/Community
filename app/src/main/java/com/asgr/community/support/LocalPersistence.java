@@ -27,6 +27,7 @@ public class LocalPersistence implements Persistence {
         insertBooks();
         insertGroups();
         insertGroupMemberships();
+        insertQuotes();
     }
 
     private void deleteDB() {
@@ -274,16 +275,28 @@ public class LocalPersistence implements Persistence {
                 .collect(Collectors.joining("', '", "'", "'"));
     }
 
-    private boolean existsBook(String bookName) {
+    public boolean existsBook(String bookName) {
         return Select.from(Book.class).where(Condition.prop("name").eq(bookName)).count() > 0;
     }
 
+    public Book findBookByName(String bookName) {
+        return Select.from(Book.class).where(Condition.prop("name").eq(bookName)).first();
+    }
+
     private void insertQuotes() {
+        Book genesis = findBookByName("Génesis");
         BibleRange bibleRange = new BibleRange(
                 Range.create(
                         new BiblePosition(1, 1),
                         new BiblePosition(1, 34)));
-        Quote quote = new Quote(bibleRange,"first quote", 12);
+
+        Quote quote = new Quote(genesis, bibleRange);
+        quote.save();
+
+        quote = new Quote(genesis, new BibleRange(
+                Range.create(
+                        new BiblePosition(23, 1),
+                        new BiblePosition(23, 1))));
         quote.save();
     }
 
