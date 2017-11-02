@@ -3,4 +3,6 @@
     <string name="button_books">Books</string>
     <string name="button_quotes">Quotes</string>
     <string name="button_groups">Groups</string>
+    <string name="text_book_abbreviation_label">Abbreviation:</string>
+    <string name="text_book_testatment_label">Testament:</string>
 </resources>

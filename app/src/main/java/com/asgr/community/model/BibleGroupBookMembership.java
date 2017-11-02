@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class BookGroup extends SugarRecord<BookGroup> {
+public class BibleGroupBookMembership extends SugarRecord<BibleGroupBookMembership> {
 
     private int bookId;
     private int groupId;

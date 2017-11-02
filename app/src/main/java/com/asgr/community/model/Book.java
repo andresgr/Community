@@ -15,8 +15,9 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class Book extends SugarRecord<Book> {
 
-    private String name;
     private int bookIndex;
+    private String name;
+    private String abbreviation;
     private Testament testament;
 
 }

@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.asgr.community.model.BibleGroup;
 import com.asgr.community.model.Book;
-import com.asgr.community.model.BookGroup;
 import com.asgr.community.model.Quote;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showGroups(View view) {
-        startDisplayActivity(view, BookGroup.class.getName());
+        startDisplayActivity(view, BibleGroup.class.getName());
     }
 
     public void startDisplayActivity(View view, String entityName) {
