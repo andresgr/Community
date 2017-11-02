@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 public class BibleGroupBook extends SugarRecord<BibleGroupBook> {
 
-    private int groupId;
-    private int bookId;
+    private Long groupId;
+    private Long bookId;
 
 }

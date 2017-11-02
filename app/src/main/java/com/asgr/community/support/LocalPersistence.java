@@ -38,13 +38,13 @@ public class LocalPersistence implements Persistence {
 
     private void insertGroups() {
         BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Pentateuco", "");
-        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Históricos", "");
-        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Sapienciales", "");
-        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Proféticos", "");
-        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Evangelios", "");
+        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Histórico", "");
+        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Sapiencial", "");
+        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Profético", "");
+        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Evangelio", "");
         BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Hechos de los Apóstoles", "");
-        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Epístolas de San Pablo", "");
-        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Epístolas Católicas", "");
+        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Epístola de San Pablo", "");
+        BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Epístola Católica", "");
         BibleGroup.executeQuery("INSERT INTO BIBLE_GROUP(name, description) VALUES(?, ?)", "Apocalipsis", "");
     }
 
@@ -118,28 +118,167 @@ public class LocalPersistence implements Persistence {
         Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Epístola de Santiago", "St", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
         Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Primera Epístola de San Pedro", "1 P", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
         Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Segunda Epístola de San Pedro", "2 P", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
-        Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Primera Epístola de Juan", "1 Jn", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
-        Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Segunda Epístola de Juan", "2 Jn", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
-        Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Tercera Epístola de Juan", "3 Jn", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
+        Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Primera Epístola de San Juan", "1 Jn", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
+        Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Segunda Epístola de San Juan", "2 Jn", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
+        Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Tercera Epístola de San Juan", "3 Jn", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
         Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Epístola de San Judas", "Judas", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
         Book.executeQuery("INSERT INTO BOOK(book_index, name, abbreviation, testament) VALUES(?, ?, ?, ?)", String.valueOf(++index), "Apocalipsis", "Ap", index <= 46 ? Testament.OLD.name() : Testament.NEW.name());
     }
 
     private void insertGroupMemberships() {
+        // Pentateuco
         BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Pentateuco", "Génesis");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Pentateuco", "Éxodo");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Pentateuco", "Levítico");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Pentateuco", "Números");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Pentateuco", "Deuteronomio");
 
-        List<String> groups = findGroups().stream()
-                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
+        // Históricos
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Josué");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Jueces");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Rut");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "1 Samuel");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "2 Samuel");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "1 Reyes");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "2 Reyes");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "1 Crónicas");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "2 Crónicas");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Esdras");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Nehemías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Tobías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Judit");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "Ester");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "1 Macabeos");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Histórico", "2 Macabeos");
+
+        // Sapienciales
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Salmos");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Cantar de los Cantares");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Lamentaciones");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Job");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Proverbios");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Eclesiastés (Qohélet)");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Sabiduría");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Sapiencial", "Eclesiástico (Sirácida)");
+
+        // Profetas
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Isaías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Jeremías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Baruc");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Ezequiel");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Daniel");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Oseas");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Joel");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Amós");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Abdías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Jonás");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Miqueas");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Nahúm");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Habacuc");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Sofonías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Ageo");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Zacarías");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Profético", "Malaquías");
+
+        // Evangelios
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Evangelio", "Evangelio San Mateo");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Evangelio", "Evangelio San Marcos");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Evangelio", "Evangelio San Lucas");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Evangelio", "Evangelio San Juan");
+
+        // Hechos de los Apóstoles
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Hechos de los Apóstoles", "Hechos de los Apóstoles");
+
+        // Epístolas de San Pablo
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a los Romanos");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Primera Epístola a los Corintios");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Segunda Epístola a los Corintios");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a los Gálatas");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a los Efesios");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a los Filipenses");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a los Colosenses");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Primera Epístola a los Tesalonicenses");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Segunda Epístola a los Tesalonicenses");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Primera Epístola a Timoteo");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Segunda Epístola a Timoteo");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a Tito");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a Filemón");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola de San Pablo", "Epístola a los Hebreos");
+
+        // Epístolas Católicas
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Epístola de Santiago");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Primera Epístola de San Pedro");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Segunda Epístola de San Pedro");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Primera Epístola de San Juan");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Segunda Epístola de San Juan");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Tercera Epístola de San Juan");
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Epístola Católica", "Epístola de San Judas");
+
+        // Apocalipsis
+        BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Apocalipsis", "Apocalipsis");
+
+//        List<String> groups = findGroups().stream()
+//                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
+//                .collect(Collectors.toList());
+//        System.out.println("groups = " + groups);
+//
+//        List<String> books = findBooks().stream()
+//                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
+//                .collect(Collectors.toList());
+//        System.out.println("books = " + books);
+//
+//        List<BibleGroupBook> bibleGroupBooks = BibleGroupBook.listAll(BibleGroupBook.class);
+//        System.out.println("bibleGroupBooks = " + bibleGroupBooks);
+
+        BibleGroup.listAll(BibleGroup.class).stream()
+                .forEach(group -> {
+                    List<Book> groupBooks = getGroupBooks(group);
+                    System.out.println(String.format("groupBooks(%s) = %s",
+                            group.getName(),
+                            groupBooks.stream().map(Book::getName).collect(Collectors.joining(", "))));
+                });
+
+//        Book.listAll(Book.class).stream()
+//                .forEach(book -> {
+//                    List<BibleGroup> bookGroups = getBookGroups(book);
+//                    System.out.println("bookGroups = " + bookGroups);
+//                });
+
+    }
+
+    public List<BibleGroup> getBookGroups(Book book) {
+        List<Long> groupIds = Select.from(BibleGroupBook.class)
+                .where(Condition.prop("book_id").eq(book.getId()))
+                .list().stream()
+                .map(BibleGroupBook::getGroupId)
                 .collect(Collectors.toList());
-        System.out.println("groups = " + groups);
+        return getGroupsById(groupIds);
+    }
 
-        List<String> books = findBooks().stream()
-                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
+    public List<Book> getGroupBooks(BibleGroup group) {
+        List<Long> bookIds = Select.from(BibleGroupBook.class)
+                .where(Condition.prop("group_id").eq(group.getId()))
+                .list().stream()
+                .map(BibleGroupBook::getBookId)
                 .collect(Collectors.toList());
-        System.out.println("books = " + books);
+        return getBooksById(bookIds);
+    }
 
-        List<BibleGroupBook> bibleGroupBooks = BibleGroupBook.listAll(BibleGroupBook.class);
-        System.out.println("bibleGroupBooks = " + bibleGroupBooks);
+    private List<BibleGroup> getGroupsById(List<Long> groupIds) {
+        return BibleGroup.findWithQuery(
+                BibleGroup.class,
+                String.format("select * from bible_group where id in (%s)", listToInClause(groupIds)));
+    }
+
+    private List<Book> getBooksById(List<Long> bookIds) {
+        return Book.findWithQuery(
+                Book.class, String.format("select * from book where id in (%s)", listToInClause(bookIds)));
+    }
+
+    private String listToInClause(List<Long> inClauseList) {
+        return inClauseList.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("', '", "'", "'"));
     }
 
     private boolean existsBook(String bookName) {
