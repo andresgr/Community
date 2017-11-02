@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.asgr.community.model.BibleGroup;
 import com.asgr.community.model.Book;
@@ -40,8 +41,13 @@ public class QuoteActivity extends AppCompatActivity {
         mPersistence.init();
 
         // specify an adapter
-        mAdapter = new QuoteEntityAdapter(mPersistence.findQuotes());
+        mAdapter = new QuoteEntityAdapter(mPersistence);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void addQuote(View view) {
+//        mAdapter.notifyItemInserted();
+        mAdapter.notifyDataSetChanged();
     }
 
 }

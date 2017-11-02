@@ -3,6 +3,8 @@ package com.asgr.community.model;
 import android.util.Range;
 
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,7 +19,7 @@ import lombok.Setter;
 @Getter @Setter
 @RequiredArgsConstructor
 @EqualsAndHashCode
-public class BibleRange {
+public class BibleRange implements Comparable<BibleRange> {
 
     @NonNull private final Range<BiblePosition> range;
 
@@ -26,7 +28,7 @@ public class BibleRange {
         BiblePosition lower = range.getLower();
         BiblePosition upper = range.getUpper();
         if (lower.getChapter() != upper.getChapter()) {
-            return String.format("%s - %d", lower, upper);
+            return String.format("%s - %s", lower, upper);
         } else if (lower.getVerse() != upper.getVerse()) {
             return String.format("%d, %d - %d",
                     lower.getChapter(), lower.getVerse(), upper.getVerse());
@@ -36,7 +38,26 @@ public class BibleRange {
     }
 
     public static BibleRange parse(String rangeAsStr) {
-        // TODO
-        throw new UnsupportedOperationException();
+        String regex = "(\\d{1,3}) \\- (\\d{1,3})";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(rangeAsStr);
+        if (matcher.matches()) {
+            String group = matcher.group(1);
+            String group1 = matcher.group(2);
+            Integer lowerChapter = Integer.parseInt(group);
+            Integer upperChapter = Integer.parseInt(group1);
+            return new BibleRange(new Range<>(
+                    new BiblePosition(lowerChapter, 0),
+                    new BiblePosition(upperChapter, 0)));
+        }
+        throw new IllegalArgumentException(rangeAsStr);
     }
+
+    @Override
+    public int compareTo(@NonNull BibleRange other) {
+        BiblePosition lower = range.getLower();
+        Range<BiblePosition> otherRange = other.getRange();
+        return lower.compareTo(otherRange.getLower());
+    }
+
 }

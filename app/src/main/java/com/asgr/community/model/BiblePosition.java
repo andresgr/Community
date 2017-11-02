@@ -36,6 +36,6 @@ public class BiblePosition implements Comparable<BiblePosition> {
 
     @Override
     public String toString() {
-        return String.format("%d, %d", chapter, verse);
+        return verse == 0 ? String.format("%d", chapter) : String.format("%d, %d", chapter, verse);
     }
 }

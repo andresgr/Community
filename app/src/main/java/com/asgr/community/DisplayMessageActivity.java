@@ -51,8 +51,6 @@ public class DisplayMessageActivity extends AppCompatActivity {
             return new BookEntityAdapter(mPersistence.findBooks());
         } else if (BibleGroup.class.getName().equals(entityName)) {
             return new BibleGroupEntityAdapter(mPersistence.findGroups());
-        } else if (Quote.class.getName().equals(entityName)) {
-            return new QuoteEntityAdapter(mPersistence.findQuotes());
         } else {
             throw new IllegalArgumentException(
                     String.format("There is no know adapter for entity %s", entityName));

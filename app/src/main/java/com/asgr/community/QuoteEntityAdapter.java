@@ -6,15 +6,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.asgr.community.model.Quote;
+import com.asgr.community.support.Persistence;
 import com.google.common.collect.ImmutableList;
 
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by andres on 31/10/17.
  */
 public class QuoteEntityAdapter extends RecyclerView.Adapter<QuoteEntityAdapter.ViewHolder> {
 
+    private final Persistence mPersistence;
     private final List<Quote> mQuotes;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -30,15 +37,20 @@ public class QuoteEntityAdapter extends RecyclerView.Adapter<QuoteEntityAdapter.
         }
 
         public void bindQuote(Quote quote) {
-            textTitle.setText(String.format("%s %s", quote.getBook().getName(), quote.getRangeAsStr()));
+            textTitle.setText(
+                    String.format("%s %s", quote.getBook().getName(), quote.getRangeAsStr()));
             textComment.setText(quote.getComment());
             textPunctuation.setText(String.valueOf(quote.getPunctuation()));
         }
 
     }
 
-    public QuoteEntityAdapter(List<Quote> quotes) {
-        mQuotes = ImmutableList.copyOf(quotes);
+    public QuoteEntityAdapter(@Nonnull Persistence persistence) {
+        mPersistence = persistence;
+        List<Quote> quotes = mPersistence.findQuotes();
+        mQuotes = quotes.stream()
+                        .sorted(Comparator.naturalOrder())
+                        .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

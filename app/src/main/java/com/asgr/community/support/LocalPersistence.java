@@ -9,9 +9,11 @@ import com.asgr.community.model.BibleRange;
 import com.asgr.community.model.Book;
 import com.asgr.community.model.Quote;
 import com.asgr.community.model.Testament;
+import com.google.common.collect.Comparators;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -291,12 +293,24 @@ public class LocalPersistence implements Persistence {
                         new BiblePosition(1, 34)));
 
         Quote quote = new Quote(genesis, bibleRange);
-        quote.save();
+//        quote.save();
 
         quote = new Quote(genesis, new BibleRange(
                 Range.create(
                         new BiblePosition(23, 1),
                         new BiblePosition(23, 1))));
+//        quote.save();
+
+        quote = new Quote(genesis, new BibleRange(
+                Range.create(
+                        new BiblePosition(2, 0),
+                        new BiblePosition(3, 0))));
+        quote.save();
+
+        quote = new Quote(genesis, new BibleRange(
+                Range.create(
+                        new BiblePosition(21, 0),
+                        new BiblePosition(22, 0))));
         quote.save();
     }
 

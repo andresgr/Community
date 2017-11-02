@@ -1,5 +1,7 @@
 package com.asgr.community.model;
 
+import android.support.annotation.NonNull;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -22,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class Quote extends SugarRecord<Quote> {
+public class Quote extends SugarRecord<Quote> implements Comparable<Quote> {
 
     private Book book;
 
@@ -67,5 +69,20 @@ public class Quote extends SugarRecord<Quote> {
 
     private Optional<BibleRange> buildRangeFromString() {
         return Optional.of(BibleRange.parse(rangeAsStr));
+    }
+
+
+    @Override
+    public int compareTo(@NonNull Quote other) {
+        Book otherBook = other.getBook();
+        int otherBookIndex = otherBook.getBookIndex();
+        int bookIndex = book.getBookIndex();
+        if (bookIndex < otherBookIndex) {
+            return -1;
+        } else if (bookIndex > otherBookIndex) {
+            return 1;
+        } else {
+            return getRange().compareTo(other.getRange());
+        }
     }
 }
