@@ -216,20 +216,9 @@ public class LocalPersistence implements Persistence {
 
         // Apocalipsis
         BibleGroupBook.executeQuery("INSERT INTO BIBLE_GROUP_BOOK(group_id, book_id) VALUES((SELECT ID FROM BIBLE_GROUP WHERE NAME = ?), (SELECT ID FROM BOOK WHERE NAME = ?))", "Apocalipsis", "Apocalipsis");
+    }
 
-//        List<String> groups = findGroups().stream()
-//                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
-//                .collect(Collectors.toList());
-//        System.out.println("groups = " + groups);
-//
-//        List<String> books = findBooks().stream()
-//                .map(g -> String.format("%d: %s\n", g.getId(), g.getName()))
-//                .collect(Collectors.toList());
-//        System.out.println("books = " + books);
-//
-//        List<BibleGroupBook> bibleGroupBooks = BibleGroupBook.listAll(BibleGroupBook.class);
-//        System.out.println("bibleGroupBooks = " + bibleGroupBooks);
-
+    private void showGroupBooks() {
         BibleGroup.listAll(BibleGroup.class).stream()
                 .forEach(group -> {
                     List<Book> groupBooks = getGroupBooks(group);
@@ -237,12 +226,16 @@ public class LocalPersistence implements Persistence {
                             group.getName(),
                             groupBooks.stream().map(Book::getName).collect(Collectors.joining(", "))));
                 });
+    }
 
-//        Book.listAll(Book.class).stream()
-//                .forEach(book -> {
-//                    List<BibleGroup> bookGroups = getBookGroups(book);
-//                    System.out.println("bookGroups = " + bookGroups);
-//                });
+    private void showBookGroups() {
+        Book.listAll(Book.class).stream()
+                .forEach(book -> {
+                    List<BibleGroup> bookGroups = getBookGroups(book);
+                    System.out.println(String.format("bookGroups(%s) = %s",
+                            book.getName(),
+                            bookGroups.stream().map(BibleGroup::getName).collect(Collectors.joining(", "))));
+                });
 
     }
 
