@@ -1,6 +1,12 @@
 package com.asgr.community.model;
 
 import android.support.annotation.NonNull;
+import android.util.Range;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -17,8 +23,14 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class BiblePosition implements Comparable<BiblePosition> {
 
+    public static final char CHAPTER_VERSE_SEPARATOR = ',';
+
     private int chapter;
     private int verse;
+
+    public BiblePosition(int chapter) {
+        this(chapter, 0);
+    }
 
     @Override
     public int compareTo(@NonNull BiblePosition other) {
@@ -36,6 +48,30 @@ public class BiblePosition implements Comparable<BiblePosition> {
 
     @Override
     public String toString() {
-        return verse == 0 ? String.format("%d", chapter) : String.format("%d, %d", chapter, verse);
+        return verse == 0 ?
+                String.format("%d", chapter) :
+                String.format("%d%c %d", chapter, CHAPTER_VERSE_SEPARATOR, verse);
     }
+
+    @NonNull
+    public static BiblePosition parse(@Nonnull String positionAsString) {
+        String[] parts = positionAsString.split(String.valueOf(CHAPTER_VERSE_SEPARATOR));
+        int positionsCount = parts.length;
+        if (positionsCount == 1) {
+            int chapter = Integer.parseInt(parts[0].trim());
+            return new BiblePosition(chapter);
+        } else if (positionsCount == 2) {
+            String chapter = parts[0].trim();
+            String verse = parts[1].trim();
+            return new BiblePosition(Integer.parseInt(chapter), Integer.parseInt(verse));
+        } else {
+            throw new IllegalArgumentException(positionAsString);
+        }
+    }
+
+    @Nonnull
+    public static boolean hasChapterVerseSeparator(String upperAsString) {
+        return upperAsString.contains(String.valueOf(CHAPTER_VERSE_SEPARATOR));
+    }
+
 }

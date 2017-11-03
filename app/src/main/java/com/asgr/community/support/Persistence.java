@@ -14,6 +14,14 @@ public interface Persistence {
 
     void init();
 
+    List<BibleGroup> getBookGroups(Book book);
+
+    List<Book> getGroupBooks(BibleGroup group);
+
+    boolean existsBookByName(String bookName);
+
+    Book findBookByName(String bookName);
+
     List<Book> findBooks();
 
     List<Quote> findQuotes();

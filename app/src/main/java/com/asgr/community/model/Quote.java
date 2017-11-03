@@ -71,7 +71,6 @@ public class Quote extends SugarRecord<Quote> implements Comparable<Quote> {
         return Optional.of(BibleRange.parse(rangeAsStr));
     }
 
-
     @Override
     public int compareTo(@NonNull Quote other) {
         Book otherBook = other.getBook();

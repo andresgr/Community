@@ -6,14 +6,14 @@ import com.asgr.community.model.BibleGroup;
 import com.asgr.community.model.BibleGroupBook;
 import com.asgr.community.model.BiblePosition;
 import com.asgr.community.model.BibleRange;
+import com.asgr.community.model.SingleBibleRange;
 import com.asgr.community.model.Book;
 import com.asgr.community.model.Quote;
 import com.asgr.community.model.Testament;
-import com.google.common.collect.Comparators;
+import com.google.common.collect.ImmutableList;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -242,6 +242,7 @@ public class LocalPersistence implements Persistence {
 
     }
 
+    @Override
     public List<BibleGroup> getBookGroups(Book book) {
         List<Long> groupIds = Select.from(BibleGroupBook.class)
                 .where(Condition.prop("book_id").eq(book.getId()))
@@ -251,6 +252,7 @@ public class LocalPersistence implements Persistence {
         return getGroupsById(groupIds);
     }
 
+    @Override
     public List<Book> getGroupBooks(BibleGroup group) {
         List<Long> bookIds = Select.from(BibleGroupBook.class)
                 .where(Condition.prop("group_id").eq(group.getId()))
@@ -277,40 +279,87 @@ public class LocalPersistence implements Persistence {
                 .collect(Collectors.joining("', '", "'", "'"));
     }
 
-    public boolean existsBook(String bookName) {
+    @Override
+    public boolean existsBookByName(String bookName) {
         return Select.from(Book.class).where(Condition.prop("name").eq(bookName)).count() > 0;
     }
 
+    @Override
     public Book findBookByName(String bookName) {
         return Select.from(Book.class).where(Condition.prop("name").eq(bookName)).first();
     }
 
     private void insertQuotes() {
         Book genesis = findBookByName("Génesis");
-        BibleRange bibleRange = new BibleRange(
-                Range.create(
-                        new BiblePosition(1, 1),
-                        new BiblePosition(1, 34)));
+        Quote quote;
 
-        Quote quote = new Quote(genesis, bibleRange);
-//        quote.save();
-
-        quote = new Quote(genesis, new BibleRange(
-                Range.create(
-                        new BiblePosition(23, 1),
-                        new BiblePosition(23, 1))));
-//        quote.save();
-
-        quote = new Quote(genesis, new BibleRange(
-                Range.create(
-                        new BiblePosition(2, 0),
-                        new BiblePosition(3, 0))));
+        // Single verse
+        quote = new Quote(genesis, new BibleRange(new BiblePosition(23, 1)));
         quote.save();
 
-        quote = new Quote(genesis, new BibleRange(
-                Range.create(
-                        new BiblePosition(21, 0),
-                        new BiblePosition(22, 0))));
+        // Single chapter
+        quote = new Quote(
+                genesis,
+                new BibleRange(new BiblePosition(2)));
+        quote.save();
+
+        // Verse range within chapter
+        quote = new Quote(
+                genesis,
+                new BibleRange(
+                        new BiblePosition(1, 1),
+                        new BiblePosition(1, 34)));
+        quote.save();
+
+        // Range among chapters
+        quote = new Quote(
+                genesis,
+                new BibleRange(
+                        new BiblePosition(2),
+                        new BiblePosition(3)));
+        quote.save();
+
+        // Range among chapters starting in verse
+        quote = new Quote(
+                genesis,
+                new BibleRange(
+                        new BiblePosition(21, 10),
+                        new BiblePosition(22)));
+        quote.save();
+
+        // Range among chapters ending in verse
+        quote = new Quote(
+                genesis,
+                new BibleRange(
+                        new BiblePosition(14),
+                        new BiblePosition(15, 10)));
+        quote.save();
+
+        // Composed ranges
+        List<SingleBibleRange> ranges = ImmutableList.of(
+                new SingleBibleRange(new BiblePosition(25, 10)),
+                new SingleBibleRange(new BiblePosition(25, 20)));
+        quote = new Quote(genesis, new BibleRange(ranges));
+        quote.save();
+
+        quote = new Quote(
+                findBookByName("Joel"),
+                new BibleRange(
+                        new BiblePosition(1, 12),
+                        new BiblePosition(2, 1)));
+        quote.save();
+
+        quote = new Quote(
+                findBookByName("Baruc"),
+                new BibleRange(
+                        new BiblePosition(1, 3)));
+        quote.save();
+
+        quote = new Quote(
+                findBookByName("Hechos de los Apóstoles"),
+                new BibleRange(
+                        new BiblePosition(2, 3),
+                        new BiblePosition(2, 12)));
         quote.save();
     }
 
