@@ -7,4 +7,10 @@
     <string name="text_book_testatment_label">Testament:</string>
     <string name="text_quote_comment_label">Comment: </string>
     <string name="text_quote_punctuation_label">Punctuation: </string>
+    <string name="button_quote_book">Book</string>
+    <string name="button_quote_verse">Verse</string>
+    <string name="button_quote_chapter">Chapter</string>
+    <string name="add_quote_title">Add Quote...</string>
+    <string name="add_quote_ok">Add</string>
+    <string name="add_quote_cancel">Cancel</string>
 </resources>

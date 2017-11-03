@@ -378,4 +378,10 @@ public class LocalPersistence implements Persistence {
         return BibleGroup.listAll(BibleGroup.class);
     }
 
+    @Override
+    public void addQuote(Quote quote) {
+        // TODO: Check duplicity and range intersections
+        quote.save();
+    }
+
 }

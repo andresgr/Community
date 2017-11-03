@@ -28,4 +28,5 @@ public interface Persistence {
 
     List<BibleGroup> findGroups();
 
+    void addQuote(Quote quote);
 }
