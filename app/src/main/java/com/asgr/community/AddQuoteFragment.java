@@ -73,7 +73,7 @@ public class AddQuoteFragment extends DialogFragment {
                         R.string.add_quote_cancel,
                         (dialog, whichButton) -> {
                             Log.d(TAG, "Cancelled quote adding");
-                            // ((QuoteActivity) getActivity()).addQuoteCancelled();
+                            ((QuoteActivity) getActivity()).addQuoteCancelled();
                         }
                 );
         AlertDialog alertDialog = builder.create();
