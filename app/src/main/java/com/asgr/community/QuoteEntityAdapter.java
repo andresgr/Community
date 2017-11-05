@@ -1,5 +1,6 @@
 package com.asgr.community;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import com.asgr.community.model.Quote;
 import com.asgr.community.support.Persistence;
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,8 +50,12 @@ public class QuoteEntityAdapter extends RecyclerView.Adapter<QuoteEntityAdapter.
 
     public QuoteEntityAdapter(@Nonnull Persistence persistence) {
         mPersistence = persistence;
+        mQuotes = buildQuoteList();
+    }
+
+    private List<Quote> buildQuoteList() {
         List<Quote> quotes = mPersistence.findQuotes();
-        mQuotes = quotes.stream()
+        return quotes.stream()
                         .sorted(Comparator.naturalOrder())
                         .collect(Collectors.toCollection(LinkedList::new));
     }
@@ -70,6 +77,22 @@ public class QuoteEntityAdapter extends RecyclerView.Adapter<QuoteEntityAdapter.
     @Override
     public int getItemCount() {
         return mQuotes.size();
+    }
+
+    public void refresh() {
+        List<Quote> newQuotes = buildQuoteList();
+        QuoteDiffCallback diffCallback = new QuoteDiffCallback(mQuotes, newQuotes);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        mQuotes.clear();
+        mQuotes.addAll(newQuotes);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    public void onQuoteAdded(Quote quote) {
+        mQuotes.add(quote);
+        Collections.sort(mQuotes);
+        notifyItemInserted(mQuotes.indexOf(quote));
     }
 
 }

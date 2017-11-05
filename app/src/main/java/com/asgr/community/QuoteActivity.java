@@ -21,7 +21,7 @@ public class QuoteActivity extends AppCompatActivity implements StringPickerDial
 
     private static final String TAG = QuoteActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private QuoteEntityAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private Persistence mPersistence;
@@ -60,8 +60,7 @@ public class QuoteActivity extends AppCompatActivity implements StringPickerDial
         Book book = mPersistence.findBookByName(bookName);
         Quote quote = new Quote(book, new BibleRange(new BiblePosition(chapter, verse)));
         mPersistence.addQuote(quote);
-//        mAdapter.notifyItemInserted();
-        mAdapter.notifyDataSetChanged();
+        mAdapter.onQuoteAdded(quote);
     }
 
     public void addQuoteCancelled() {
