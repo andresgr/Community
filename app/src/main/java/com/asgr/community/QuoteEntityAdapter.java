@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by andres on 31/10/17.
  */
@@ -28,15 +31,19 @@ public class QuoteEntityAdapter extends RecyclerView.Adapter<QuoteEntityAdapter.
     private final List<Quote> mQuotes;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textTitle;
-        private TextView textComment;
-        private TextView textPunctuation;
+
+        @BindView(R.id.texQuoteTitle)
+        TextView textTitle;
+
+        @BindView(R.id.textQuoteCommentValue)
+        TextView textComment;
+
+        @BindView(R.id.textQuotePunctuationValue)
+        TextView textPunctuation;
 
         public ViewHolder(ViewGroup viewGroup) {
             super(viewGroup);
-            textTitle = itemView.findViewById(R.id.texQuoteTitle);
-            textComment = itemView.findViewById(R.id.textQuoteCommentValue);
-            textPunctuation = itemView.findViewById(R.id.textQuotePunctuationValue);
+            ButterKnife.bind(this, viewGroup);
         }
 
         public void bindQuote(Quote quote) {

@@ -12,11 +12,16 @@ import android.view.View;
 import com.asgr.community.support.LocalPersistence;
 import com.asgr.community.support.Persistence;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class QuoteActivity extends AppCompatActivity {
 
     private static final String TAG = QuoteActivity.class.getSimpleName();
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.quoteList)
+    RecyclerView mRecyclerView;
+
     private QuoteEntityAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -26,17 +31,11 @@ public class QuoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
-
-        mRecyclerView = findViewById(R.id.quoteList);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
+        ButterKnife.bind(this);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setHasFixedSize(true);
 
         mPersistence = new LocalPersistence();
 //        mPersistence.init();
@@ -48,7 +47,10 @@ public class QuoteActivity extends AppCompatActivity {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(
+                    RecyclerView recyclerView,
+                    RecyclerView.ViewHolder viewHolder,
+                    RecyclerView.ViewHolder target) {
                 return false;
             }
 

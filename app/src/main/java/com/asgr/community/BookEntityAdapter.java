@@ -10,6 +10,9 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by andres on 31/10/17.
  */
@@ -18,15 +21,19 @@ public class BookEntityAdapter extends RecyclerView.Adapter<BookEntityAdapter.Vi
     private final List<Book> mBooks;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textName;
-        private TextView textAbbreviation;
-        private TextView textTestament;
 
-        public ViewHolder(ViewGroup v) {
-            super(v);
-            textName = itemView.findViewById(R.id.texBooktTitle);
-            textAbbreviation = itemView.findViewById(R.id.textBookAbbreviation);
-            textTestament = itemView.findViewById(R.id.textBookTestament);
+        @BindView(R.id.texBooktTitle)
+        TextView textName;
+
+        @BindView(R.id.textBookAbbreviation)
+        TextView textAbbreviation;
+
+        @BindView(R.id.textBookTestament)
+        TextView textTestament;
+
+        public ViewHolder(ViewGroup viewGroup) {
+            super(viewGroup);
+            ButterKnife.bind(this, viewGroup);
         }
 
         public void bindBook(Book book) {

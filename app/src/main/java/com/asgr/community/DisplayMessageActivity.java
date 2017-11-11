@@ -12,9 +12,14 @@ import com.asgr.community.model.Quote;
 import com.asgr.community.support.LocalPersistence;
 import com.asgr.community.support.Persistence;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DisplayMessageActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.entityList)
+    RecyclerView mRecyclerView;
+
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -25,7 +30,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
 
-        mRecyclerView = findViewById(R.id.entityList);
+        ButterKnife.bind(this);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -37,7 +42,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         mPersistence = new LocalPersistence();
-        mPersistence.init();
+//        mPersistence.init();
 
         // specify an adapter
         Intent intent = getIntent();

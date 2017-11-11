@@ -23,10 +23,6 @@ public class MainActivity extends AppCompatActivity {
         startDisplayActivity(view, Book.class.getName());
     }
 
-    public void showQuotes(View view) {
-        startDisplayActivity(view, Quote.class.getName());
-    }
-
     public void showGroups(View view) {
         startDisplayActivity(view, BibleGroup.class.getName());
     }

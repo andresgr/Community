@@ -26,6 +26,9 @@ import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hotchemi.stringpicker.StringPickerDialog;
 
 /**
@@ -39,18 +42,24 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
 
     private Persistence mPersistence;
     private ArrayList<String> mBooks;
-    private Button mButtonBook;
 
-    private Button mButtonFromChapter;
+    @BindView(R.id.buttonQuoteBook)
+    Button mButtonBook;
+
+    @BindView(R.id.buttonQuoteFromChapter)
+    Button mButtonFromChapter;
     private Integer mFromChapter;
 
-    private Button mButtonFromVerse;
+    @BindView(R.id.buttonQuoteFromVerse)
+    Button mButtonFromVerse;
     private Integer mFromVerse;
 
-    private Button mButtonToChapter;
+    @BindView(R.id.buttonQuoteToChapter)
+    Button mButtonToChapter;
     private Integer mToChapter;
 
-    private Button mButtonToVerse;
+    @BindView(R.id.buttonQuoteToVerse)
+    Button mButtonToVerse;
     private Integer mToVerse;
 
     @Override
@@ -64,8 +73,8 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
 
         setTitle(R.string.add_quote_title);
         setContentView(R.layout.activity_add_quote);
+        ButterKnife.bind(this);
 
-        mButtonBook = findViewById(R.id.buttonQuoteBook);
         mButtonBook.setOnClickListener(view -> {
             StringPickerDialog dialog = new StringPickerDialog();
             Bundle bundle = new Bundle();
@@ -76,7 +85,6 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
             dialog.show(getSupportFragmentManager(), "bookPicker");
         });
 
-        mButtonFromChapter = findViewById(R.id.buttonQuoteFromChapter);
         mButtonFromChapter.setOnClickListener(view -> getNumberDialog(view, numberAsString -> {
             mFromChapter = parseIntegerOrReturnNull(numberAsString);
             mButtonFromChapter.setText(numberAsString);
@@ -85,8 +93,6 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
                 mButtonToChapter.setText(numberAsString);
             }
         }));
-
-        mButtonFromVerse = findViewById(R.id.buttonQuoteFromVerse);
         mButtonFromVerse.setOnClickListener(view -> getNumberDialog(view, numberAsString -> {
             mFromVerse = parseIntegerOrReturnNull(numberAsString);
             mButtonFromVerse.setText(numberAsString);
@@ -96,7 +102,6 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
             }
         }));
 
-        mButtonToChapter = findViewById(R.id.buttonQuoteToChapter);
         mButtonToChapter.setOnClickListener(view -> getNumberDialog(view, numberAsString -> {
             Integer toChapter = parseIntegerOrReturnNull(numberAsString);
             if (toChapter != null && toChapter >= mFromChapter) {
@@ -105,7 +110,6 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
             }
         }));
 
-        mButtonToVerse = findViewById(R.id.buttonQuoteToVerse);
         mButtonToVerse.setOnClickListener(view -> getNumberDialog(view, numberAsString -> {
             Integer toVerse = parseIntegerOrReturnNull(numberAsString);
             if (toVerse != null) {
@@ -124,6 +128,10 @@ public class AddQuoteActivity extends AppCompatActivity implements StringPickerD
         }
     }
 
+//    @OnClick({R.id.buttonQuoteFromChapter,
+//            R.id.buttonQuoteFromVerse,
+//            R.id.buttonQuoteToChapter,
+//            R.id.buttonQuoteToVerse})
     private void getNumberDialog(View view, Consumer<String> consumer) {
         Button button = (Button) view;
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
