@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonQuoteBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="selectBook"
+        android:text="@string/button_quote_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/button_quote_book" />
+
+    <Button
+        android:id="@+id/buttonQuoteFromChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_quote_chapter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonQuoteBook"
+        tools:text="@string/button_quote_chapter" />
+
+    <Button
+        android:id="@+id/buttonQuoteFromVerse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_quote_verse"
+        app:layout_constraintStart_toEndOf="@+id/buttonQuoteFromChapter"
+        app:layout_constraintTop_toBottomOf="@+id/buttonQuoteBook"
+        tools:text="@string/button_quote_verse" />
+
+
+    <Button
+        android:id="@+id/buttonQuoteToChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_quote_chapter"
+        app:layout_constraintEnd_toStartOf="@+id/buttonQuoteToVerse"
+        app:layout_constraintStart_toEndOf="@+id/buttonQuoteFromVerse"
+        app:layout_constraintTop_toBottomOf="@+id/buttonQuoteBook"
+        tools:text="@string/button_quote_chapter" />
+
+    <Button
+        android:id="@+id/buttonQuoteToVerse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_quote_verse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonQuoteBook"
+        tools:text="@string/button_quote_verse" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onAddQuoteCancelled"
+        android:text="@string/add_quote_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/add_quote_cancel" />
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onAddQuote"
+        android:text="@string/add_quote_ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonCancel"
+        tools:text="@string/add_quote_ok" />
+
+</android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
+import hotchemi.stringpicker.StringPickerDialog;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -83,5 +84,9 @@ public class Quote extends SugarRecord<Quote> implements Comparable<Quote> {
         } else {
             return getRange().compareTo(other.getRange());
         }
+    }
+
+    public String getShortDescription() {
+        return String.format("%s %s", book.getAbbreviation(), getRangeAsStr());
     }
 }

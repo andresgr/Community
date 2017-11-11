@@ -1,31 +1,26 @@
 package com.asgr.community;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
-import com.asgr.community.model.BiblePosition;
-import com.asgr.community.model.BibleRange;
-import com.asgr.community.model.Book;
-import com.asgr.community.model.Quote;
 import com.asgr.community.support.LocalPersistence;
 import com.asgr.community.support.Persistence;
 
-import hotchemi.stringpicker.StringPickerDialog;
-
-public class QuoteActivity extends AppCompatActivity implements StringPickerDialog.OnClickListener {
+public class QuoteActivity extends AppCompatActivity {
 
     private static final String TAG = QuoteActivity.class.getSimpleName();
+
     private RecyclerView mRecyclerView;
     private QuoteEntityAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private Persistence mPersistence;
-    private AddQuoteFragment mAddQuoteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,29 +44,41 @@ public class QuoteActivity extends AppCompatActivity implements StringPickerDial
         // specify an adapter
         mAdapter = new QuoteEntityAdapter(mPersistence);
         mRecyclerView.setAdapter(mAdapter);
-    }
 
-    public void showAddQuoteDialog(View view) {
-        mAddQuoteFragment = AddQuoteFragment.newInstance(mPersistence);
-        mAddQuoteFragment.show(getSupportFragmentManager(), "showAddQuoteDialog");
-    }
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
-    public void addQuote(String bookName, int chapter, int verse) {
-        Book book = mPersistence.findBookByName(bookName);
-        Quote quote = new Quote(book, new BibleRange(new BiblePosition(chapter, verse)));
-        mPersistence.addQuote(quote);
-        mAdapter.onQuoteAdded(quote);
-    }
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
 
-    public void addQuoteCancelled() {
-        mAddQuoteFragment = null;
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Remove swiped item from list and notify the RecyclerView
+                // TODO: Deal with indexes getOld...
+                Log.i(TAG, String.format("Swiped item '%s'", viewHolder.getAdapterPosition()));
+//                mAdapter.getItemId()
+//                mPersistence.deleteQuote();
+
+                mAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
+                // TODO: Launch snackbar to undo
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
-    public void onClick(String value) {
-        Log.d(TAG, "Clicked book " + value);
-        if (mAddQuoteFragment != null) {
-            mAddQuoteFragment.onBookSelected(value);
-        }
+    protected void onResume() {
+        super.onResume();
+        mAdapter.refresh();
     }
+
+    public void showAddQuoteDialog(View view) {
+        Intent intent = new Intent(this, AddQuoteActivity.class);
+        startActivity(intent);
+    }
+
 }
